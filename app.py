@@ -1,6 +1,8 @@
 from routes.home import home
-from routes.register import register
-from routes.login import login
+from fastapi.staticfiles import StaticFiles
+from pathlib import Path
+from routes.register import registration
+from routes.login import log_in
 from routes.user import user
 from fastapi import FastAPI
 import os
@@ -15,11 +17,17 @@ app = FastAPI(
 
 )
 
+app.mount(
+    "/static",
+    StaticFiles(directory=Path("/Users/nurimateos/Desktop/quer_me 2/webapp/static")),
+    #StaticFiles(directory=Path(__file__).parent.parent.absolute() / "webapp/static"),
+    name="static",
+)
 
 app.include_router(home)
 app.include_router(user)
-app.include_router(register)
-app.include_router(login)
+app.include_router(registration)
+app.include_router(log_in)
 
 
 if __name__ == "__main__":

@@ -1,2 +1,32 @@
-{% extends "home.html" %}
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <h5 class="display-5 text-center">My All in One</h5>
+    <div class="text-danger font-weight-bold">
+      {% for error in errors %}
+      <li>{{error}}</li>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="row my-3">
+    <form method="POST" action="/auth/login">
+      <div class="input-group mt-3 mb-1">
+        <span class="input-group-text" id="username">Account</span>
+        <input type="text" required class="form-control" name="username" value="{{username}}" placeholder="User or email" aria-label="street" aria-describedby="basic-addon1">
+      </div>
+      <div class="input-group mt-3 mb-1">
+        <span class="input-group-text" id="Password">Password</span>
+        <input type="password" required placeholder="Password" value="{{password}}" name="password" class="form-control" aria-label="street" aria-describedby="basic-addon1">
+      </div>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button type="submit" class="btn btn-primary mt-3 float-">Log in</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
 
