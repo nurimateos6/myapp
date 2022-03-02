@@ -42,6 +42,22 @@ async def login(request: Request, data: OAuth2PasswordRequestForm = Depends()):
     access_token = loginmanager.create_access_token(
         data={"sub": username}
     )
-    resp = RedirectResponse(url=f"/manager/account", status_code=status.HTTP_302_FOUND)
+    resp = RedirectResponse(url=f"/{username}/principal", status_code=status.HTTP_302_FOUND)
+    loginmanager.set_cookie(resp, access_token)
+    return resp
+
+@log_in.post("/auth/login/")
+async def login(request: Request, data: OAuth2PasswordRequestForm = Depends()):
+    username = data.username
+    user = load_user(username)
+
+    if not user:
+        raise InvalidCredentialsException
+    elif not pbkdf2_sha512.verify(data.password, user.password):
+        return templates.TemplateResponse('home.html', {'request': request, 'errors': ["Incorrect username or password"]})
+    access_token = loginmanager.create_access_token(
+        data={"sub": username}
+    )
+    resp = RedirectResponse(url=f"/{username}/principal", status_code=status.HTTP_302_FOUND)
     loginmanager.set_cookie(resp, access_token)
     return resp

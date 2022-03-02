@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html style="background-color: #9de2ff;">
+  <head>
+    <title>All in One</title>
+    <!-- Latest compiled and minified CSS -->
+    <link href="{{ url_for('static', path='/css/bootstrap.css') }}" rel="stylesheet">
+    <script src="{{ url_for('static', path='/js/jquery-3.5.1.min.js') }}"></script>
+    <script src="{{ url_for('static', path='/js/bootstrap.js') }}"></script>
+  </head>
+  <body>
+    <section class="vh-100" style="background-color: #9de2ff;">
+      <div class="container py-5 h-50">
+        <div class="row d-flex justify-content-center align-items-center h-90" style=background-image:url(https://img.freepik.com/free-photo/healthy-lifestyle-food-sport-concept-white-wooden-background_53476-6109.jpg?size=626&ext=jpg);background-repeat:no-repeat; )>
+          <div class="col col-md-9 col-lg-7 col-xl-6">
+            <div class="card" style="border-radius: 15px;">
+              <div class="card-body p-4">
+                {% block content %}{% endblock %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

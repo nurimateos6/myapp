@@ -29,9 +29,6 @@ async def create_registration(request: Request):
         try:
             res = conn.execute(users.insert().values(new_user))
             if res.is_insert:
-                user = conn.execute(users.select().where(users.c.id == res.inserted_primary_key[0])).first()
-                conn.execute(user.insert().values({'user_id': user.id}))
-                #conn.execute(managers.insert().values({'user_id': user.id}))
                 return responses.RedirectResponse(
                     f'/login/', status_code=status.HTTP_302_FOUND
                 )
@@ -40,4 +37,3 @@ async def create_registration(request: Request):
         except IntegrityError:
             form.__dict__.get('errors').append('Duplicate username or email')
     return templates.TemplateResponse('register/register.html', form.__dict__)
-

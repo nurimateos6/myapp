@@ -4,6 +4,7 @@ from pathlib import Path
 from routes.register import registration
 from routes.login import log_in
 from routes.user import user
+from routes.principal import principal
 from fastapi import FastAPI
 import os
 
@@ -28,6 +29,7 @@ app.include_router(home)
 app.include_router(user)
 app.include_router(registration)
 app.include_router(log_in)
+app.include_router(principal)
 
 
 if __name__ == "__main__":
