@@ -31,5 +31,5 @@ class WodsForm:
     async def is_valid(self):
         try:
             return True
-        except:
+        except Exception:
             return False

@@ -1,14 +1,13 @@
-from fastapi import APIRouter, Request, Depends, status, HTTPException
+import os
+from fastapi import APIRouter, Request, Depends, status
 from fastapi.responses import RedirectResponse
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi_login import LoginManager
 from fastapi_login.exceptions import InvalidCredentialsException
 from fastapi.templating import Jinja2Templates
+from passlib.hash import pbkdf2_sha512
 from models.user import users
 from config.db import conn
-from passlib.hash import pbkdf2_sha512
-import os
-
 
 templates = Jinja2Templates(directory='webapp/templates/')
 
@@ -38,13 +37,19 @@ async def login(request: Request, data: OAuth2PasswordRequestForm = Depends()):
     if not user:
         raise InvalidCredentialsException
     elif not pbkdf2_sha512.verify(data.password, user.password):
-        return templates.TemplateResponse('login/login.html', {'request': request, 'errors': ["Incorrect username or password"]})
+        return templates.TemplateResponse('login/login.html', \
+                                          {'request': request, \
+                                           'errors': ["Incorrect username or password"]})
+    else:
+        raise InvalidCredentialsException #TODO
+
     access_token = loginmanager.create_access_token(
         data={"sub": username}
     )
     resp = RedirectResponse(url=f"/{username}/principal", status_code=status.HTTP_302_FOUND)
     loginmanager.set_cookie(resp, access_token)
     return resp
+
 
 @log_in.post("/auth/login/")
 async def login(request: Request, data: OAuth2PasswordRequestForm = Depends()):
@@ -54,7 +59,12 @@ async def login(request: Request, data: OAuth2PasswordRequestForm = Depends()):
     if not user:
         raise InvalidCredentialsException
     elif not pbkdf2_sha512.verify(data.password, user.password):
-        return templates.TemplateResponse('home.html', {'request': request, 'errors': ["Incorrect username or password"]})
+        return templates.TemplateResponse('home.html',
+                                          {'request': request, \
+                                           'errors': ["Incorrect username or password"]})
+    else:
+        raise InvalidCredentialsException
+
     access_token = loginmanager.create_access_token(
         data={"sub": username}
     )

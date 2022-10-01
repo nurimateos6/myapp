@@ -1,12 +1,9 @@
-from pydantic import BaseModel
 from typing import Optional
-from sqlalchemy.sql.sqltypes import DateTime
+from pydantic import BaseModel
 
 
 class User(BaseModel):
-        id: Optional[int]
-        username: str
-        password: str
-        email: str
-
-
+    id: Optional[int]
+    username: str
+    password: str
+    email: str

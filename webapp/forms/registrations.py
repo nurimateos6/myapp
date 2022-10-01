@@ -24,4 +24,3 @@ class RegistrationForm:
         if not self.errors:
             return True
         return False
-

@@ -1,5 +1,6 @@
 from typing import List, Optional
 from fastapi import Request
+from webapp.forms.utils import is_valid
 
 
 class UsersForm:
@@ -17,10 +18,6 @@ class UsersForm:
         self.email = form.get("email")
         self.password = form.get("password")
         self.password_validation = form.get("password_validation")
+        is_valid(self)
 
 
-    async def is_valid(self):
-        try:
-            return True
-        except:
-            return False

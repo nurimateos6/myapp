@@ -1,5 +1,7 @@
 from typing import List, Optional
 from fastapi import Request
+from webapp.forms.utils import is_valid
+
 
 
 class RecipesForm:
@@ -25,10 +27,5 @@ class RecipesForm:
         self.is_public = form.get("is_public")
         self.ingredients = form.get("ingredients")
         self.description = form.get("description")
+        is_valid(self)
 
-
-    async def is_valid(self):
-        try:
-            return True
-        except:
-            return False

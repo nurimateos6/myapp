@@ -1,0 +1,6 @@
+.idea
+.Ds_Store
+.pyc
+./myapp/*
+myapp/lib/*
+__pycache__/

@@ -24,8 +24,7 @@ def create_user(user: User):
     res = conn.execute(users.insert().values(new_user))
     if res.is_insert:
         return conn.execute(users.select().where(users.c.id == res.inserted_primary_key[0])).first()
-    else:
-        return {}
+
 
 @user.get("/users/{id}")
 def get_user():
@@ -46,3 +45,4 @@ def update_user(id: int, user: User):
         email=user.email
     ).where(users.c.id == id))
     return conn.execute(users.select().where(users.c.id == id)).first()
+
