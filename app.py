@@ -20,7 +20,7 @@ app = FastAPI(
 
 app.mount(
     "/static",
-    StaticFiles(directory=Path("/Users/nurimateos/Desktop/quer_me 2/webapp/static")),
+    StaticFiles(directory=Path("/Users/nurimateos/PycharmProjects/myapp/webapp/static")),
     #StaticFiles(directory=Path(__file__).parent.parent.absolute() / "webapp/static"),
     name="static",
 )
