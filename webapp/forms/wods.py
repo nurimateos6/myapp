@@ -1,3 +1,5 @@
+# pylint: disable=too-many-instance-attributes
+# pylint: disable=oo-few-public-methods
 from typing import List, Optional
 from fastapi import Request
 from webapp.forms.utils import is_valid

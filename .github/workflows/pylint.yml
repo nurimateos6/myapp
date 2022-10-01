@@ -27,4 +27,4 @@ jobs:
         pip install fastapi_login
     - name: Analysing the code with pylint
       run: |
-        pylint $(git ls-files '*.py') --disable=missing-docstring
+        pylint */*.py --disable=missing-docstring
