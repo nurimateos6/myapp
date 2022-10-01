@@ -1,7 +1,7 @@
 from typing import List
 from fastapi import APIRouter, Request
 from fastapi.templating import Jinja2Templates
-from fastapi import Response, status, responses
+from fastapi import Response
 from cryptography.fernet import Fernet
 from starlette.status import HTTP_204_NO_CONTENT
 from sqlalchemy.exc import IntegrityError
@@ -10,6 +10,7 @@ from config.db import conn
 from models.recipe import recipes
 from schemas.recipe import Recipe
 from webapp.forms.recipes import RecipesForm
+from webapp.forms.utils import is_valid
 
 principal = APIRouter()
 
@@ -57,7 +58,7 @@ def get_recipe_form(username: str, request: Request):
 async def create_recipe(request: Request):
     n_recipe = RecipesForm(request)
     await n_recipe.load_data()
-    if await n_recipe.is_valid():
+    if await is_valid():
         new_recipe = {'name': n_recipe.name,
                       'servings': n_recipe.servings,
                       'time_preparation_h': n_recipe.time_preparation_h,

@@ -26,4 +26,4 @@ class RecipesForm:
         self.is_public = form.get("is_public")
         self.ingredients = form.get("ingredients")
         self.description = form.get("description")
-        # is_valid()
+        is_valid()
