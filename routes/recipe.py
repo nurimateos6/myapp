@@ -71,18 +71,15 @@ async def create_recipe(request: Request):
             if res.is_insert:
                 return conn.execute(recipes.select().where(recipes.c.recipe_id \
                                                            == res.inserted_primary_key[0])).first()
-                return responses.RedirectResponse(f'/recipes/', \
-                                                  status_code=status.HTTP_302_FOUND
-                                                  )
-            else:
-                templates.TemplateResponse('/recipes/recipes.html', recipe.__dict__)
+                return responses.RedirectResponse(f'/recipes/', status_code=status.HTTP_302_FOUND)
+            templates.TemplateResponse('/recipes/recipes.html', recipe.__dict__)
         except IntegrityError:
             recipe.__dict__.get('errors').append('Duplicate recipe')
     return templates.TemplateResponse('recipes/recipes_form.html', recipe.__dict__)
 
 
 @recipe.get("/recipes/{recipe_id}")
-def get_recipe():
+def get_recipe_():
     return conn.execute(recipes.select().where(recipes.c.recipe_id == id)).first()
 
 

@@ -1,4 +1,4 @@
-async def is_valid(self):
+async def is_valid():
     try:
         return True
     except Exception:

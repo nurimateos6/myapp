@@ -51,24 +51,25 @@ def get_wod_user(username: str, request: Request):
 
 
 @wod.post('/wods', response_model=Wod, tags=['Wods'])
-def add_wod(wod: Wod):
-    new_wod = {'name': wod.name,
-               'persons': wod.persons,
-               'time_wod_h': wod.time_wod_h,
-               'time_wod_m': wod.time_wod_m,
-               'difficulty': wod.difficulty,
-               'is_public': wod.is_public,
-               "materials": wod.materials,
-               'description': wod.description}
+def add_wod(n_wod: Wod):
+    new_wod = {'name': n_wod.name,
+               'persons': n_wod.persons,
+               'time_wod_h': n_wod.time_wod_h,
+               'time_wod_m': n_wod.time_wod_m,
+               'difficulty': n_wod.difficulty,
+               'is_public': n_wod.is_public,
+               "materials": n_wod.materials,
+               'description': n_wod.description}
 
     res = conn.execute(wods.insert().values(new_wod))
     if res.is_insert:
         return conn.execute(wods.select().where(wods.c.wod_id == \
                                                 res.inserted_primary_key[0])).first()
+    return None
 
 
 @wod.get("/wods/{wod_id}")
-def get_wod():
+def get_wod_id():
     return conn.execute(wods.select().where(wods.c.wod_id == id)).first()
 
 
@@ -79,10 +80,10 @@ def delete_wod():
 
 
 @wod.put('/wods/{wod_id}', response_model=Wod, tags=['Wods'])
-def update_wod(wod: Wod):
+def update_wod(n_wod: Wod):
     conn.execute(wods.update().values(
-        wod_id=wod.wod_id,
-        name=wod.name,
-        persons=wod.persons
+        wod_id=n_wod.wod_id,
+        name=n_wod.name,
+        persons=n_wod.persons
     ).where(wods.c.wod_id == id))
     return conn.execute(wods.select().where(wods.c.wod_id == id)).first()
