@@ -1,12 +1,13 @@
-from routes.home import home
-from fastapi.staticfiles import StaticFiles
+import os
 from pathlib import Path
+from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+from routes.home import home
 from routes.register import registration
 from routes.login import log_in
 from routes.user import user
 from routes.principal import principal
-from fastapi import FastAPI
-import os
+
 
 app = FastAPI(
     title="My All in One",
