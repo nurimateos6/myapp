@@ -3,7 +3,6 @@ from fastapi import Request
 from webapp.forms.utils import is_valid
 
 
-
 class RecipesForm:
     def __init__(self, request: Request):
         self.request: Request = request
@@ -27,5 +26,4 @@ class RecipesForm:
         self.is_public = form.get("is_public")
         self.ingredients = form.get("ingredients")
         self.description = form.get("description")
-        is_valid()
-
+        # is_valid()

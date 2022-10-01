@@ -71,7 +71,7 @@ async def create_recipe(request: Request):
             if res.is_insert:
                 return conn.execute(recipes.select().where(recipes.c.recipe_id \
                                                            == res.inserted_primary_key[0])).first()  # pylint: disable=W0143
-                return responses.RedirectResponse('/recipes/', status_code=status.HTTP_302_FOUND)
+                # return responses.RedirectResponse('/recipes/', status_code=status.HTTP_302_FOUND)
             templates.TemplateResponse('/recipes/recipes.html', recipe.__dict__)
         except IntegrityError:
             recipe.__dict__.get('errors').append('Duplicate recipe')
@@ -95,5 +95,5 @@ def update_recipe(n_recipe: Recipe):
         recipe_id=n_recipe.recipe_id,
         name=n_recipe.name,
         servings=n_recipe.servings
-    ).where(recipes.c.recipe_id == id))
+    ).where(recipes.c.recipe_id == id))  # pylint: disable=W0143
     return conn.execute(recipes.select().where(recipes.c.recipe_id == id)).first()  # pylint: disable=W0143

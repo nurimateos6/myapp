@@ -84,5 +84,5 @@ def update_wod(n_wod: Wod):
         wod_id=n_wod.wod_id,
         name=n_wod.name,
         persons=n_wod.persons
-    ).where(wods.c.wod_id == id))
+    ).where(wods.c.wod_id == id))  # pylint: disable=W0143
     return conn.execute(wods.select().where(wods.c.wod_id == id)).first()  # pylint: disable=W0143
