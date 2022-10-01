@@ -18,6 +18,6 @@ class UsersForm:
         self.user_email = form.get("email")
         self.user_password = form.get("password")
         self.password_validation = form.get("password_validation")
-        is_valid(self)
+        is_valid()
 
 

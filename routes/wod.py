@@ -1,8 +1,8 @@
+from typing import List
 from fastapi import Response, APIRouter, Request
 from fastapi.templating import Jinja2Templates
 from starlette.status import HTTP_204_NO_CONTENT
 from cryptography.fernet import Fernet
-from typing import List
 from config.db import conn
 from models.wod import wods
 from schemas.wod import Wod
@@ -10,7 +10,6 @@ from schemas.wod import Wod
 principal = APIRouter()
 
 templates = Jinja2Templates(directory="webapp/templates/")
-
 
 key = Fernet.generate_key()
 funcf = Fernet(key)
@@ -64,18 +63,18 @@ def add_wod(n_wod: Wod):
     res = conn.execute(wods.insert().values(new_wod))
     if res.is_insert:
         return conn.execute(wods.select().where(wods.c.wod_id == \
-                                                res.inserted_primary_key[0])).first()
+                                                res.inserted_primary_key[0])).first()  # pylint: disable=W0143
     return None
 
 
 @wod.get("/wods/{wod_id}")
 def get_wod_id():
-    return conn.execute(wods.select().where(wods.c.wod_id == id)).first()
+    return conn.execute(wods.select().where(wods.c.wod_id == id)).first()  # pylint: disable=W0143
 
 
 @wod.delete("/wods/{wod_id}")
 def delete_wod():
-    conn.execute(wods.delete().where(wods.c.wod_id == id)).first()
+    conn.execute(wods.delete().where(wods.c.wod_id == id)).first()  # pylint: disable=W0143
     return Response(status_code=HTTP_204_NO_CONTENT)
 
 
@@ -86,4 +85,4 @@ def update_wod(n_wod: Wod):
         name=n_wod.name,
         persons=n_wod.persons
     ).where(wods.c.wod_id == id))
-    return conn.execute(wods.select().where(wods.c.wod_id == id)).first()
+    return conn.execute(wods.select().where(wods.c.wod_id == id)).first()  # pylint: disable=W0143

@@ -31,7 +31,7 @@ async def create_registration(request: Request):
             res = conn.execute(users.insert().values(new_user))
             if res.is_insert:
                 return responses.RedirectResponse(
-                    f'/login/', status_code=status.HTTP_302_FOUND
+                    '/login/', status_code=status.HTTP_302_FOUND
                 )
         except IntegrityError:
             form.__dict__.get('errors').append('Duplicate username or email')
