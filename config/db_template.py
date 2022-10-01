@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine, MetaData
 
-password = "your password"
-engine = create_engine(f"postgresql://postgres:{password}@0.0.0.0:5432/mymeals")
+PASSWORD = "your password"
+engine = create_engine(f"postgresql://postgres:{PASSWORD}@0.0.0.0:5432/mymeals")
 
 meta = MetaData()
 

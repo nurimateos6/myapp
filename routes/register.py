@@ -1,12 +1,13 @@
+from typing import List
 from fastapi import APIRouter, Request, responses, status
 from fastapi.templating import Jinja2Templates
+from sqlalchemy.exc import IntegrityError
+from passlib.hash import pbkdf2_sha512
+from webapp.forms.registrations import RegistrationForm
 from schemas.user import User
 from models.user import users
-from webapp.forms.registrations import RegistrationForm
-from sqlalchemy.exc import IntegrityError
 from config.db import conn
-from typing import List
-from passlib.hash import pbkdf2_sha512
+
 
 registration = APIRouter()
 
@@ -30,10 +31,8 @@ async def create_registration(request: Request):
             res = conn.execute(users.insert().values(new_user))
             if res.is_insert:
                 return responses.RedirectResponse(
-                    f'/login/', status_code=status.HTTP_302_FOUND
+                    '/login/', status_code=status.HTTP_302_FOUND
                 )
-            else:
-                templates.TemplateResponse('register/register.html', form.__dict__)
         except IntegrityError:
             form.__dict__.get('errors').append('Duplicate username or email')
     return templates.TemplateResponse('register/register.html', form.__dict__)

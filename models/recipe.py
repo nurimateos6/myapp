@@ -1,5 +1,5 @@
 from sqlalchemy import Table, Column
-from sqlalchemy.sql.sqltypes import Integer, String, DateTime, Boolean
+from sqlalchemy.sql.sqltypes import Integer, String, DateTime
 from sqlalchemy.sql import func
 from config.db import meta, engine
 

@@ -1,5 +1,8 @@
+# pylint: disable=too-many-instance-attributes
+# pylint: disable=oo-few-public-methods
 from typing import List, Optional
 from fastapi import Request
+from webapp.forms.utils import is_valid
 
 
 class RecipesForm:
@@ -25,10 +28,4 @@ class RecipesForm:
         self.is_public = form.get("is_public")
         self.ingredients = form.get("ingredients")
         self.description = form.get("description")
-
-
-    async def is_valid(self):
-        try:
-            return True
-        except:
-            return False
+        is_valid()
